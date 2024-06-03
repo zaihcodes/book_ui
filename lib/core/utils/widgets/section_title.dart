@@ -28,7 +28,7 @@ class SectionTitle extends StatelessWidget {
         TextButton(
             onPressed: func,
             child: Text(
-              'Read more',
+              'See more',
               style: TextStyle(
                 color: theme.colorScheme.onSurface.withOpacity(0.5),
               ),
