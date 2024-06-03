@@ -1,4 +1,5 @@
 import 'package:book_app/models/book.dart';
+import 'package:book_app/presentation/screens/book_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -22,14 +23,23 @@ class TrendingWidget extends StatelessWidget {
             height: 110.h,
             child: Row(
               children: [
-                SizedBox(
-                  width: 80.w,
-                  height: 110.h,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Image.asset(
-                      book.imgUrl!,
-                      fit: BoxFit.cover,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                BookDetailScreen(book: book)));
+                  },
+                  child: SizedBox(
+                    width: 80.w,
+                    height: 110.h,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.asset(
+                        book.imgUrl!,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),
