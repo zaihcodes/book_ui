@@ -1,5 +1,7 @@
 import 'package:book_app/models/book.dart';
+import 'package:book_app/presentation/bloc/upcoming/upcoming_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class UpcomingBooks extends StatelessWidget {
@@ -36,92 +38,99 @@ class UpcomingBooks extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return SizedBox(
-      height: 130.h,
-      width: double.infinity,
-      child: Stack(
-        children: [
-          PageView.builder(
-              itemCount: upcominBooks.length,
-              itemBuilder: (context, index) {
-                final book = upcominBooks[index];
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      image: DecorationImage(
-                        image: AssetImage(book.imgUrl!),
-                        fit: BoxFit.cover,
-                        alignment: Alignment.center,
-                      ),
-                    ),
-                    child: Container(
-                      padding: const EdgeInsets.only(
-                          top: 20, left: 20, bottom: 20, right: 150),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        gradient: LinearGradient(
-                          colors: [
-                            theme.colorScheme.shadow.withOpacity(0.7),
-                            Colors.transparent
-                          ],
-                          begin: Alignment.centerLeft,
-                          stops: const [0.2, 1],
+    return BlocBuilder<UpcomingCubit, UpcomingState>(
+      builder: (context, state) {
+        return SizedBox(
+          height: 130.h,
+          width: double.infinity,
+          child: Stack(
+            children: [
+              PageView.builder(
+                  onPageChanged: (index) {
+                    context.read<UpcomingCubit>().changePageIndex(index: index);
+                  },
+                  itemCount: upcominBooks.length,
+                  itemBuilder: (context, index) {
+                    final book = upcominBooks[index];
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          image: DecorationImage(
+                            image: AssetImage(book.imgUrl!),
+                            fit: BoxFit.cover,
+                            alignment: Alignment.center,
+                          ),
                         ),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            book.name!,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                              fontSize: 22,
-                              color: Colors.white,
-                              fontWeight: FontWeight.w500,
+                        child: Container(
+                          padding: const EdgeInsets.only(
+                              top: 20, left: 20, bottom: 20, right: 150),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            gradient: LinearGradient(
+                              colors: [
+                                theme.colorScheme.shadow.withOpacity(0.7),
+                                Colors.transparent
+                              ],
+                              begin: Alignment.centerLeft,
+                              stops: const [0.2, 1],
                             ),
                           ),
-                          Text(
-                            '${book.desc!.substring(0, 50)}...',
-                            style: const TextStyle(
-                                color: Colors.grey, fontSize: 12),
-                          )
-                        ],
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                book.name!,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  fontSize: 22,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              Text(
+                                '${book.desc!.substring(0, 50)}...',
+                                style: const TextStyle(
+                                    color: Colors.grey, fontSize: 14),
+                              )
+                            ],
+                          ),
+                        ),
                       ),
+                    );
+                  }),
+              Positioned(
+                left: 30.w,
+                bottom: 20.w,
+                child: SizedBox(
+                  height: 4.h,
+                  width: 150.w,
+                  child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return AnimatedContainer(
+                        duration: const Duration(milliseconds: 500),
+                        width: state.pageIndex == index ? 30 : 10,
+                        // height: 3,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                      );
+                    },
+                    separatorBuilder: (context, index) => const SizedBox(
+                      width: 5, // Use height here for vertical spacing
                     ),
+                    itemCount: upcominBooks.length,
                   ),
-                );
-              }),
-          Positioned(
-            left: 30.w,
-            bottom: 20.w,
-            child: SizedBox(
-              height: 4.h,
-              width: 150.w,
-              child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  return AnimatedContainer(
-                    duration: const Duration(milliseconds: 500),
-                    width: 30,
-                    // height: 3,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                  );
-                },
-                separatorBuilder: (context, index) => const SizedBox(
-                  width: 5, // Use height here for vertical spacing
                 ),
-                itemCount: upcominBooks.length,
               ),
-            ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
