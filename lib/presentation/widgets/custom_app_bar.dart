@@ -1,4 +1,6 @@
+import 'package:book_app/presentation/bloc/theme/theme_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar({super.key});
@@ -6,6 +8,7 @@ class CustomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final themeState = context.read<ThemeCubit>().state;
     return Container(
       padding: const EdgeInsets.only(top: 40, left: 20, right: 20),
       child: Row(
@@ -36,9 +39,13 @@ class CustomAppBar extends StatelessWidget {
             width: 15,
           ),
           GestureDetector(
-            onTap: () {},
-            child: const Icon(
-              Icons.dark_mode,
+            onTap: () {
+              context.read<ThemeCubit>().toggleTheme();
+            },
+            child: Icon(
+              themeState.themeData.brightness == Brightness.light
+                  ? Icons.dark_mode
+                  : Icons.light_mode,
               size: 30,
             ),
           ),

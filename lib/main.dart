@@ -1,3 +1,4 @@
+import 'package:book_app/presentation/bloc/theme/theme_cubit.dart';
 import 'package:book_app/presentation/bloc/upcoming/upcoming_cubit.dart';
 import 'package:book_app/presentation/screens/home_screen.dart';
 import 'package:flutter/material.dart';
@@ -15,16 +16,21 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      child: BlocProvider(
-        create: (context) => UpcomingCubit(),
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(
-                seedColor: Colors.greenAccent, brightness: Brightness.light),
-            useMaterial3: true,
-          ),
-          home: const HomeScreen(),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => UpcomingCubit()),
+          BlocProvider(create: (context) => ThemeCubit()),
+        ],
+        child: BlocBuilder<ThemeCubit, ThemeState>(
+          builder: (context, state) {
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              theme: state.themeData,
+              // darkTheme: AppTheme.darkTheme,
+              // themeMode: AppTheme.lightTheme,
+              home: const HomeScreen(),
+            );
+          },
         ),
       ),
     );
