@@ -1,4 +1,5 @@
 import 'package:book_app/core/utils/widgets/section_title.dart';
+import 'package:book_app/presentation/screens/recommended_screen.dart';
 import 'package:book_app/presentation/widgets/custom_app_bar.dart';
 import 'package:book_app/presentation/widgets/recommended_widget.dart';
 import 'package:book_app/presentation/widgets/trending_widget.dart';
@@ -29,7 +30,13 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   SectionTitle(
                     title: 'Recommended for you',
-                    func: () {},
+                    func: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const RecommendedScreen()),
+                      );
+                    },
                   ),
                   SizedBox(
                     height: 10.h,
