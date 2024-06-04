@@ -15,20 +15,37 @@ class BookDetailScreen extends StatelessWidget {
         width: double.infinity,
         child: Column(
           children: [
-            Container(
-              height: 350.h,
-              width: double.infinity,
-              decoration: const BoxDecoration(
-                borderRadius:
-                    BorderRadius.vertical(bottom: Radius.circular(30)),
-              ),
-              child: ClipRRect(
-                  borderRadius:
-                      const BorderRadius.vertical(bottom: Radius.circular(30)),
-                  child: Image.asset(
-                    book.imgUrl!,
-                    fit: BoxFit.cover,
-                  )),
+            Stack(
+              children: [
+                Container(
+                  height: 350.h,
+                  width: double.infinity,
+                  decoration: const BoxDecoration(
+                    borderRadius:
+                        BorderRadius.vertical(bottom: Radius.circular(30)),
+                  ),
+                  child: ClipRRect(
+                      borderRadius: const BorderRadius.vertical(
+                          bottom: Radius.circular(30)),
+                      child: Image.asset(
+                        book.imgUrl!,
+                        fit: BoxFit.cover,
+                      )),
+                ),
+                Positioned(
+                    top: 30,
+                    left: 20,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Icon(
+                        Icons.arrow_back_ios,
+                        size: 16.w,
+                        color: Colors.white,
+                      ),
+                    ))
+              ],
             ),
             SizedBox(
               height: 15.h,
