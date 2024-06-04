@@ -1,16 +1,18 @@
-# book_app
+# Book UI App
 
-A new Flutter project.
+This is a simple Book UI app built with Flutter. The app features a static dataset representing books and supports both light and dark modes. Theme mode toggling is implemented using the Cubit state management package from flutter_bloc.
 
-## Getting Started
+## Features
+ - Static Book Data: The app uses a set of static data to display a list of books.
+ - Light and Dark Themes: Users can toggle between light and dark themes.
+ - State Management: Theme toggling is managed using Cubit from the flutter_bloc package.
 
-This project is a starting point for a Flutter application.
+## screenshots
 
-A few resources to get you started if this is your first Flutter project:
+<img src="./screenshots/Screenshot_1l.png" height="500em" />&nbsp;&nbsp;<img src="./screenshots/Screenshot_1d.png" height="500em" />
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+<img src="./screenshots/Screenshot_2l.png" height="500em" />&nbsp;&nbsp;<img src="./screenshots/Screenshot_2d.png" height="500em" />
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img src="./screenshots/Screenshot_3l.png" height="500em" />&nbsp;&nbsp;<img src="./screenshots/Screenshot_3d.png" height="500em" />
+
+<img src="./screenshots/Screenshot_4l.png" height="500em" />&nbsp;&nbsp;<img src="./screenshots/Screenshot_4d.png" height="500em" />
